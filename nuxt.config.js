@@ -1,7 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     typescript: false,
-
+    runtimeConfig: {
+        adminPassword: 'valid-password',
+        public: {
+            apiBase: 'http://example.com'
+        }
+    },
     app: {
         head: {
             title: 'Sakai Vue',

@@ -1,6 +1,11 @@
 export default class DiscordService {
+    constructor() {
+        const config = useRuntimeConfig()
+        this.apiBase = config.public.apiBase
+    }
+
     getAppliance() {
-        return fetch('http://localhost:8080/discord/appliances', {
+        return fetch(`${this.apiBase}/discord/appliances`, {
             headers: {
                 'Content-Type': 'application/json',
                 'api-key': 'valid-key',
@@ -9,7 +14,7 @@ export default class DiscordService {
     }
 
     getChannels() {
-        return fetch('http://localhost:8080/discord/channels', {
+        return fetch(`${this.apiBase}/discord/channels`, {
             headers: {
                 'Content-Type': 'application/json',
                 'api-key': 'valid-key',
@@ -18,7 +23,7 @@ export default class DiscordService {
     }
 
     approve(applianceId, isApproved) {
-        return fetch(`http://localhost:8080/discord/approve/${applianceId}`, {
+        return fetch(`${this.apiBase}/discord/approve/${applianceId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,6 +32,26 @@ export default class DiscordService {
             body: JSON.stringify({
                 is_approved: isApproved
             })
+        })
+    }
+
+    lockChannel(channelId) {
+        return fetch(`${this.apiBase}/discord/channel/lock/${channelId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'api-key': 'valid-key',
+            }
+        })
+    }
+
+    unlockChannel(channelId) {
+        return fetch(`${this.apiBase}/discord/channel/unlock/${channelId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'api-key': 'valid-key',
+            }
         })
     }
 }
