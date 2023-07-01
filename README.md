@@ -1,8 +1,8 @@
-# Nuxt 3 Minimal Starter
+# ifandonlyif dev guide
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+this project is based on [Nuxt 3](https://nuxt.com/) framework
 
-## Setup
+## installation
 
 Make sure to install the dependencies:
 
@@ -17,6 +17,20 @@ npm install
 pnpm install
 ```
 
+## setup config
+
+edit .env file
+
+```
+cp .env .env.example
+vim .env
+```
+
+- NUXT_PUBLIC_API_BASE
+    - url to deployed ifandonlyif-backend
+- NUXT_ADMIN_PASSWORD
+    - password is used to login admin account
+
 ## Development Server
 
 Start the development server on `http://localhost:3000`
@@ -24,19 +38,3 @@ Start the development server on `http://localhost:3000`
 ```bash
 npm run dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
