@@ -3,11 +3,11 @@ import { ref } from 'vue';
 import AppMenuItem from './AppMenuItem.vue';
 const model = ref([
     {
-        label: '專案審核',
+        label: 'verify reported projects',
         items:[
-            {label: '未審核專案', to: '/home'},
-            {label: '已審核專案', to: '/project/verified'},
-            {label: '未通過專案', to: '/project/disproved'}
+            {label: 'unverified projects', to: '/home'},
+            {label: 'verified prjects', to: '/project/verified'},
+            {label: 'disproved projects', to: '/project/disproved'}
         ]
     },
     // {
@@ -17,10 +17,10 @@ const model = ref([
     //     ]
     // },
     {
-        label: 'discord 機器人管理',
+        label: 'discord bot management',
         items: [
-            { label: '頻道申請管理', to: '/discord/appliance' },
-            { label: '頻道列表', to: '/discord/channels' },
+            { label: 'appliances', to: '/discord/appliance' },
+            { label: 'channel management', to: '/discord/channels' },
         ]
     }
     // {

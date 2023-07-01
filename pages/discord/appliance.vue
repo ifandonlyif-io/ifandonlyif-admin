@@ -79,22 +79,22 @@ function reject(appliance) {
     <Toast />
     <div class="grid">
         <div class="col-10 card">
-            <h3 class="p-2">頻道申請</h3>
+            <h3 class="p-2">Appliance from channels</h3>
             <DataTable :value="appliances">
-                <Column field="channelName" header="頻道名稱"></Column>
-                <Column field="createdAt" header="申請時間">
+                <Column field="channelName" header="channel name"></Column>
+                <Column field="createdAt" header="apply at">
                     <template #body="slotProps">
                         {{moment(slotProps.data.createdAt).format('YYYY-MM-DD HH:mm:ss')}}
                     </template>
                 </Column>
-                <Column header="狀態" style="min-width:100px">
+                <Column header="status" style="min-width:100px">
                     <template #body="slotProps">
-                        <span v-if="!slotProps.data.isApproved.Valid">未審核</span>
-                        <span v-if="slotProps.data.isApproved.Bool">已通過</span>
-                        <span v-if="!slotProps.data.isApproved.Bool">未通過</span>
+                        <Tag severity="warning" v-if="!slotProps.data.isApproved.Valid">to be approved</Tag>
+                        <Tag severity="success" v-if="slotProps.data.isApproved.Bool">approved</Tag>
+                        <Tag severity="danger" v-if="!slotProps.data.isApproved.Bool">rejected</Tag>
                     </template>
                 </Column>
-                <Column header="操作">
+                <Column header="options">
                     <template #body="slotProps">
                         <Button 
                             label="approve" 
