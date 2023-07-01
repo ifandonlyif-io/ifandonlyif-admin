@@ -2,8 +2,9 @@ export default defineEventHandler(async (event) => {
     let body = await readBody(event);
 
     let isValid = false;
+    const config = useRuntimeConfig();
 
-    if (body.email === 'admin' && body.password === 'admin') {
+    if (body.email === 'admin' && body.password === config.adminPassword) {
         isValid = true;
     }
 
