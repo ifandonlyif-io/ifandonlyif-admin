@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useLayout } from './composables/layout';
 import { useRouter } from 'vue-router';
+import { useToast } from 'primevue/usetoast';
 const { layoutConfig, onMenuToggle } = useLayout();
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
@@ -21,9 +22,13 @@ const onTopBarMenuButton = () => {
     topbarMenuActive.value = !topbarMenuActive.value;
 };
 
-const onSettingsClick = () => {
-    topbarMenuActive.value = false;
-    router.push('/utilities/documentation');
+const logout = () => {
+    localStorage.removeItem('token');
+    router.push('/');
+    useToast().add({
+        severity: 'success',
+        summary: 'Logged out',
+    })
 };
 
 const topbarMenuClasses = computed(() => {
@@ -63,8 +68,7 @@ const isOutsideClicked = (event) => {
 <template>
     <div class="layout-topbar">
         <router-link to="/" class="layout-topbar-logo">
-            <img :src="logoUrl" alt="logo" />
-            <span>SAKAI</span>
+            <span>ifandonlyif Admin</span>
         </router-link>
 
         <button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle()">
@@ -83,11 +87,11 @@ const isOutsideClicked = (event) => {
             <button @click="onTopBarMenuButton()" class="p-link layout-topbar-button">
                 <i class="pi pi-user"></i>
                 <span>Profile</span>
-            </button>
-            <button @click="onSettingsClick()" class="p-link layout-topbar-button">
-                <i class="pi pi-cog"></i>
-                <span>Settings</span>
             </button> -->
+            <button @click="logout()" class="p-link layout-topbar-button">
+                <i class="pi pi-sign-out"></i>
+                <span>log out</span>
+            </button> 
         </div>
     </div>
 </template>
