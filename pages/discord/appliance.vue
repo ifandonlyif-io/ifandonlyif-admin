@@ -90,8 +90,14 @@ function reject(appliance) {
                 <Column header="status" style="min-width:100px">
                     <template #body="slotProps">
                         <Tag severity="warning" v-if="!slotProps.data.isApproved.Valid">to be approved</Tag>
-                        <Tag severity="success" v-if="slotProps.data.isApproved.Bool">approved</Tag>
-                        <Tag severity="danger" v-if="!slotProps.data.isApproved.Bool">rejected</Tag>
+                        <Tag severity="success" 
+                            v-if="slotProps.data.isApproved.Valid && slotProps.data.isApproved.Bool">
+                            approved
+                        </Tag>
+                        <Tag severity="danger" 
+                            v-if="slotProps.data.isApproved.Valid && !slotProps.data.isApproved.Bool">
+                            rejected
+                        </Tag>
                     </template>
                 </Column>
                 <Column header="options">
