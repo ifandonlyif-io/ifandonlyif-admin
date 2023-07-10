@@ -13,7 +13,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+RUN node --max-old-space-size=1000 $(which npm) run build
 
 FROM base AS runner
 WORKDIR /app
