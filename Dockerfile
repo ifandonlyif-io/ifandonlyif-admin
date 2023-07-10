@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN node --max-old-space-size=1000 $(which npm) install
 
 FROM base AS builder
 WORKDIR /app
