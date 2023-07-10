@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN node --max-old-space-size=1000 $(which npm) install
+RUN npm install
 
 FROM base AS builder
 WORKDIR /app
@@ -13,7 +13,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+RUN node --max-old-space-size=1000 $(which npm) run build
 
 FROM base AS runner
 WORKDIR /app
