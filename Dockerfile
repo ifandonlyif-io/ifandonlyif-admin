@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN bun install
+RUN bun --smol install
 
 FROM node:18-alpine AS builder
 WORKDIR /app
@@ -14,7 +14,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN NODE_OPTIONS=--max_old_space_size=1600 npm run build
+RUN NODE_OPTIONS=--max_old_space_size=1024 npm run build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
