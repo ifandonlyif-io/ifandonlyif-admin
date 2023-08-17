@@ -14,7 +14,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN NODE_OPTIONS=--max_old_space_size=1024 npm run build
+RUN NODE_OPTIONS=--max_old_space_size=850 npm run build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
