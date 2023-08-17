@@ -1,16 +1,15 @@
-FROM oven/bun:0.7.1 AS builder
-
-RUN apt-get update && apt-get install -y git
-
+FROM node:18-bookworm AS builder
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-
-RUN bun --smol install
+RUN apt-get update && apt-get install -y git unzip
+RUN wget https://github.com/oven-sh/bun/releases/download/bun-v0.7.3/bun-linux-aarch64.zip &&\
+  unzip bun-linux-aarch64.zip && chmod +x ./bun-linux-aarch64/bun
 
 COPY . .
-
-RUN bun run build
+RUN chmod +x ./bun-linux-aarch64/bun
+RUN ./bun-linux-aarch64/bun --smol install
+RUN ./bun-linux-aarch64/bun --smol run build
+# RUN NODE_OPTIONS=--max_old_space_size=850 npm run build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
