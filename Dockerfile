@@ -1,21 +1,22 @@
-FROM node:18-alpine AS base
+FROM oven/bun:0.7.1 AS deps
 
-FROM base AS deps
+RUN apt-get update && apt-get install -y git
+
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN bun install
 
-FROM base AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+RUN NODE_OPTIONS=--max_old_space_size=1600 npm run build
 
-FROM base AS runner
+FROM node:18-alpine AS runner
 WORKDIR /app
 
 COPY --from=builder /app/.output ./output
