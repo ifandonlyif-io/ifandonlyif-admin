@@ -9,8 +9,8 @@ RUN chmod +x ./bun-linux-aarch64/bun
 COPY package.json package-lock.json ./
 RUN ./bun-linux-aarch64/bun --smol install
 COPY . .
-RUN NODE_OPTIONS=--max_old_space_size=700 ./bun-linux-aarch64/bun --smol run build
-# RUN NODE_OPTIONS=--max_old_space_size=850 npm run build
+# RUN NODE_OPTIONS=--max_old_space_size=700 ./bun-linux-aarch64/bun --smol run build
+RUN NODE_OPTIONS=--max_old_space_size=700 npm run build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
