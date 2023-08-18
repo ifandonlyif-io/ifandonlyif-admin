@@ -7,6 +7,8 @@
 .yarn/cache
 .yarn/*.gz
 node_modules
+.nuxt
+.output
 
 # files
 .DS_Store
