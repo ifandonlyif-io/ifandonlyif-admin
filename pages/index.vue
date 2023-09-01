@@ -2,6 +2,8 @@
 import { useLayout } from '@/layouts/composables/layout';
 import { ref, computed } from 'vue';
 import AppConfig from '@/layouts/AppConfig.vue';
+import AuthService from '@/service/AuthService';
+
 const { layoutConfig } = useLayout();
 let email = ref('');
 let password = ref('');
@@ -11,6 +13,8 @@ let passwordInvalid = ref(false)
 let invalidMessage = ref('')
 
 let loginResponse = ref({})
+
+let authService = new AuthService();
 
 const logoUrl = computed(() => {
     return `/layout/images/${layoutConfig.darkTheme.value ? 'logo-white' : 'logo-dark'}.svg`;
@@ -40,26 +44,21 @@ function login() {
         return
     }
 
-    useFetch('/api/auth/login', {
-        method: 'POST',
-        body: {
-            email: email.value,
-            password: password.value
-        },
-        onResponse: async ({response}) => {
-            console.log(response);
-            if (response._data.success) {
-                console.log('login success');
-                localStorage.setItem('token', response._data.token);
-                useState('user').value = response._data.user;
-                await navigateTo('/home');
-            } else {
+    authService.login(email.value, password.value)
+        .then((res) => {
+            if (!res.ok) {
                 emailInvalid.value = true
                 passwordInvalid.value = true
                 invalidMessage.value = 'Email or Password is incorrect'
+                return
             }
-        }
-    })
+            return res.json()
+        })
+        .then(res => {
+            localStorage.setItem('token', res.data.token)
+            navigateTo('home')
+            console.log(res)
+        })
 }
 
 watch(email, () => {
@@ -98,7 +97,7 @@ watch(password, () => {
                             style="padding: 1rem" />
 
                         <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
-                        <InputText
+                        <Password
                             id="password1" 
                             v-model="password" 
                             placeholder="Password" 
@@ -106,7 +105,7 @@ watch(password, () => {
                             class="w-full mb-3" 
                             :class="{'border-red-500': passwordInvalid}"
                             inputClass="w-full" 
-                            :inputStyle="{ padding: '1rem' }"></InputText>
+                            :inputStyle="{ padding: '1rem' }"></Password>
 
                         <div class="flex align-items-center justify-content-between mb-5 gap-5">
                             <div class="flex">
