@@ -123,6 +123,7 @@ watch(password, () => {
     </div>
 
     <AppConfig simple />
+    <Toast></Toast>
 </template>
 
 <style scoped>

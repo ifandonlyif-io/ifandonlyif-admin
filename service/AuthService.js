@@ -23,4 +23,33 @@ export default class AuthService {
             }
         })
     }
+
+    getUsers() {
+        return fetch(`${this.apiBase}/api/admin/user-management/users`, {
+            method: 'GET',
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+    }
+
+    addUser(data) {
+        return fetch(`${this.apiBase}/api/admin/user-management/user`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                token: localStorage.getItem('token')
+            },
+            body: JSON.stringify(data)
+        })
+    }
+
+    deleteUser(id) {
+        return fetch(`${this.apiBase}/api/admin/user-management/user/${id}`, {
+            method: 'DELETE',
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+    }
 }
