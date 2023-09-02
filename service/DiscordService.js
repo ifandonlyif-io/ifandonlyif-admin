@@ -5,7 +5,7 @@ export default class DiscordService {
     }
 
     getAppliance() {
-        return fetch(`${this.apiBase}/discord/appliances`, {
+        return fetch(`${this.apiBase}/api/discord/appliances`, {
             headers: {
                 'Content-Type': 'application/json',
                 'api-key': 'valid-key',
@@ -14,7 +14,7 @@ export default class DiscordService {
     }
 
     getChannels() {
-        return fetch(`${this.apiBase}/discord/channels`, {
+        return fetch(`${this.apiBase}/api/discord/channels`, {
             headers: {
                 'Content-Type': 'application/json',
                 'api-key': 'valid-key',
@@ -23,7 +23,7 @@ export default class DiscordService {
     }
 
     approve(applianceId, isApproved) {
-        return fetch(`${this.apiBase}/discord/approve/${applianceId}`, {
+        return fetch(`${this.apiBase}/api/discord/approve/${applianceId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export default class DiscordService {
     }
 
     lockChannel(channelId) {
-        return fetch(`${this.apiBase}/discord/channel/lock/${channelId}`, {
+        return fetch(`${this.apiBase}/api/discord/channel/lock/${channelId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export default class DiscordService {
     }
 
     unlockChannel(channelId) {
-        return fetch(`${this.apiBase}/discord/channel/unlock/${channelId}`, {
+        return fetch(`${this.apiBase}/api/discord/channel/unlock/${channelId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
